@@ -12,7 +12,11 @@
         naersk-lib = pkgs.callPackage naersk { };
       in
       {
-        packages.default = naersk-lib.buildPackage ./.;
+        packages.default = naersk-lib.buildPackage {
+          src = ./.;
+          nativeBuildInputs = with pkgs; [ pkg-config ];
+          buildInputs = with pkgs; [ udev ];
+        };
 
         apps.default = {
           type = "app";
